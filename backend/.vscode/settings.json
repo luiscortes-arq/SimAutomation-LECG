@@ -1,0 +1,140 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": [],
+    
+    // Asociación de archivos personalizados
+    "files.associations": {
+        "*.udatasmith": "xml"
+    },
+
+    // Configuración de Indent-Rainbow
+    "indentRainbow.includedLanguages": [
+        "xml"
+    ],
+    "indentRainbow.excludedLanguages": [],
+    "indentRainbow.ignoreLinePatterns": [],
+    "indentRainbow.ignoreErrorLanguages": [
+        "xml"
+    ],
+    "indentRainbow.colorOnWhiteSpaceOnly": true,
+    
+    // Prevenir auto-formateo en XML
+    "[xml]": {
+        "editor.formatOnSave": false,
+        "editor.formatOnPaste": false,
+        "editor.autoIndent": "keep"
+    },
+
+    // Configuración de seguridad y servidor
+    "security.workspace.trust.untrustedFiles": "open",
+    "liveServer.settings.CustomBrowser": "firefox",
+    "liveServer.settings.port": 8080,
+
+    // Tema y apariencia
+    "workbench.colorTheme": "One Dark Pro Night Flat",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.statusBar.visible": false,
+    "workbench.sideBar.location": "right",
+
+    // Formateador JSON
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    // Configuración de TODO TREE
+    "todo-tree.highlights.enabled": true,
+    "todo-tree.regex.regex": "(AGREGADO|PROYECTO-DESORDENADO|CÓDIGO-FIJO|TEMPLATE|PURGADO|RENOMBRADO|NESTED)",
+    "todo-tree.regex.regexCaseSensitive": false,
+    "todo-tree.filtering.includeGlobs": [
+        "**/*.udatasmith",
+        "**/*"
+    ],
+    
+    "todo-tree.general.tags": [
+        "AGREGADO",
+        "PROYECTO-DESORDENADO",
+        "CÓDIGO-FIJO",
+        "TEMPLATE",
+        "PURGADO",
+        "RENOMBRADO",
+        "NESTED"
+    ],
+
+    "todo-tree.highlights.defaultHighlight": {
+        "type": "text",
+        "foreground": "#575757",
+        "background": "#00000000",
+        "opacity": 10
+    },
+
+    "todo-tree.highlights.customHighlight": {
+        "AGREGADO": {
+            "foreground": "#ffffff",
+            "background": "#00ff51",
+            "icon": "star"
+        },
+        "PROYECTO-DESORDENADO": {
+            "foreground": "#ffffff",
+            "background": "#ff0077",
+            "icon": "alert"
+        },
+        "CÓDIGO-FIJO": {
+            "foreground": "#ffffff",
+            "background": "#00fffb",
+            "icon": "gear"
+        },
+        "TEMPLATE": {
+            "foreground": "#ffffff",
+            "background": "#9000ff",
+            "icon": "check"
+        },
+        "PURGADO": {
+            "foreground": "#ffffff",
+            "background": "#ff0000",
+            "icon": "trash"
+        },
+        "RENOMBRADO": {
+            "foreground": "#000000",
+            "background": "#ffaa00",
+            "icon": "pencil"
+        },
+        "NESTED": {
+            "foreground": "#ffffff",
+            "background": "#ff6600",
+            "icon": "link"
+        }
+    },
+
+    "todo-tree.tree.showCountsInTree": true,
+    "todo-tree.tree.groupByTag": true,
+    "todo-tree.tree.showTagsInTree": true,
+    "todo-tree.tree.expanded": true,
+
+    // Personalización de colores de comentarios
+    "editor.tokenColorCustomizations": {
+        "comments": "#7f848e",
+        "textMateRules": [
+            {
+                "scope": "comment",
+                "settings": {
+                    "foreground": "#7f848e",
+                    "fontStyle": "italic"
+                }
+            }
+        ]
+    },
+
+    // Configuración de sugerencias del editor
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    "editor.suggestOnTriggerCharacters": true,
+    "editor.suggest.showWords": true,
+    "editor.tabCompletion": "on",
+    
+    "workbench.settings.applyToAllProfiles": [
+        "editor.tabCompletion"
+    ]
+}

@@ -1,0 +1,9 @@
+{
+    "fixed": {
+        "User": { "ID": "VDCCORE", "OS": "MTY" },
+        "MetaData": { "name": "VDCCORE_DATA" }
+    },
+    "contextual": {
+        "key": "Element*Type"
+    }
+}

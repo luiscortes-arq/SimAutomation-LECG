@@ -1,0 +1,25 @@
+{
+  "rules": [
+    { "tag": "tag", "attributes": { "value": "Revit.Element.Id." } },
+    { "tag": "tag", "attributes": { "value": "Revit.Element.UniqueId." } },
+    { "tag": "tag", "attributes": { "value": "Revit.Element.SiteLocation" } },
+    { "tag": "tag", "attributes": { "value": "IsElement" } },
+    { "tag": "tag", "attributes": { "value": "Revit.DB.FamilyInstance.Mirrored.False" } },
+    { "tag": "tag", "attributes": { "value": "Revit.DB.FamilyInstance.HandFlipped.False" } },
+    { "tag": "tag", "attributes": { "value": "Revit.DB.FamilyInstance.FaceFlipped.False" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "DiffuseColor" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "DiffuseMapFading" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "TintEnabled" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "TintColor" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "IsMetal" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "Glossiness" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "SelfIlluminationLuminance" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "BumpAmount" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "SurveyPointLocation*Location" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "BasePointLocation*Location" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "Element*Category" } },
+    { "tag": "KeyValueProperty", "attributes": { "name": "Element*Family" } },
+    { "tag": "Actor", "attributes": { "layer": "Levels" } },
+    { "tag": "Export", "attributes": {} }
+  ]
+}

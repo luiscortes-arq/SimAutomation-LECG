@@ -1,0 +1,7 @@
+{
+    "priority_map": {
+        "SEW": 1, "SFN": 2, "SCO": 3, "SFR": 4, 
+        "SJT": 5, "SRF": 6, "SFL": 7, "SWA": 8, "OET": 9
+    },
+    "default_priority": 99
+}

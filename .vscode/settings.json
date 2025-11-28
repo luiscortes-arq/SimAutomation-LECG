@@ -1,0 +1,15 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "material-icon-theme.folders.associations": {
+        "fn_00_pipelines": "pipe",
+        "fn_01_input": "input",
+        "fn_02_processor": "functions",
+        "fn_03_purge": "temp",
+        "fn_04_rename": "tools",
+        "fn_05_sorting": "utils",
+        "fn_06_grouping": "cluster",
+        "fn_07_search_replace": "utils",
+        "fn_08_prettier": "config",
+        "fn_09_output": "dist"
+    }
+}

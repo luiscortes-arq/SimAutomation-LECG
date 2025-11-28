@@ -1,0 +1,4 @@
+{
+    "description": "Configuration for input handling",
+    "supported_formats": [".udatasmith", ".xml"]
+}
