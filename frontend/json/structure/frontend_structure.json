@@ -1,0 +1,51 @@
+{
+    "description": "HTML-CSS-JS Relationship Map",
+    "pages": {
+        "index": {
+            "html": "frontend/main/index.html",
+            "css": [],
+            "js": []
+        },
+        "cards": {
+            "html": "frontend/pages/cards/cards.html",
+            "css": ["frontend/css/pages/cards.css"],
+            "js": ["frontend/pages/cards/cards.js"]
+        },
+        "purge": {
+            "html": "frontend/pages/purge/purge.html",
+            "css": ["frontend/css/pages/purge.css"],
+            "js": [
+                "frontend/pages/purge/purge.js",
+                "frontend/js/pipeline/purgePipeline.js"
+            ],
+            "log_component": {
+                "html": "frontend/pages/purge/log-purge.html",
+                "js": "frontend/pages/purge/log-purge.js"
+            }
+        },
+        "replace": {
+            "html": "frontend/pages/replace/replace.html",
+            "css": ["frontend/css/pages/replace.css"],
+            "js": [
+                "frontend/pages/replace/replace.js",
+                "frontend/js/pipeline/replacePipeline.js"
+            ],
+            "log_component": {
+                "html": "frontend/pages/replace/log-replace.html",
+                "js": "frontend/pages/replace/log-replace.js"
+            }
+        }
+    },
+    "shared_resources": {
+        "css": {
+            "tokens": "frontend/css/tokens/*.css",
+            "theme": "frontend/css/theme/*.css",
+            "components": "frontend/css/components/*.css"
+        },
+        "js": {
+            "core": "frontend/js/core/*.js",
+            "utils": "frontend/js/utils/*.js",
+            "ui": "frontend/js/ui/**/*.js"
+        }
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "description": "Frontend-Backend Integration Map",
+    "routes": {
+        "/": {
+            "component": "main/index.html",
+            "description": "Entry point served by Flask static file handler"
+        },
+        "/api/purge": {
+            "method": "POST",
+            "handler": "backend.main.app.purge",
+            "pipeline": "backend.functions.fn_00_pipelines.purge_pipeline.run_purge_pipeline",
+            "frontend_trigger": "frontend/pages/purge/purge.js (fetch)"
+        },
+        "/api/replace": {
+            "method": "POST",
+            "handler": "backend.main.app.replace",
+            "pipeline": "backend.functions.fn_00_pipelines.replace_pipeline.run_replace_pipeline",
+            "frontend_trigger": "frontend/pages/replace/replace.js (fetch)"
+        }
+    },
+    "data_flow": {
+        "purge": {
+            "input": "JSON {input_path, output_path}",
+            "process": "Flask -> Purge Pipeline -> Processor -> XML Utils",
+            "output": "JSON {message, output_path}"
+        },
+        "replace": {
+            "input": "JSON {target_path, template_path, output_path}",
+            "process": "Flask -> Replace Pipeline -> Processor (x2) -> Search/Replace -> XML Utils",
+            "output": "JSON {message, output_path}"
+        }
+    }
+}

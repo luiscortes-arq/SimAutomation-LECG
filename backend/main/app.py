@@ -16,7 +16,7 @@ app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path='')
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    return app.send_static_file('main/index.html')
 
 # Configuration
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))

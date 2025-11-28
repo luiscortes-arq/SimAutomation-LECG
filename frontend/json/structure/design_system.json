@@ -1,0 +1,23 @@
+{
+    "description": "Design System Token Map",
+    "source": "frontend/css/json/variables.json",
+    "mapping": {
+        "colors": {
+            "css_file": "frontend/css/tokens/colors.css",
+            "usage": "var(--color-name)"
+        },
+        "spacing": {
+            "css_file": "frontend/css/tokens/spacing.css",
+            "usage": "var(--spacing-size)"
+        },
+        "typography": {
+            "css_file": "frontend/css/tokens/typography.css",
+            "usage": "var(--font-prop)"
+        }
+    },
+    "theme_implementation": {
+        "light": "frontend/css/theme/light-mode.css",
+        "dark": "frontend/css/theme/dark-mode.css",
+        "toggle_logic": "frontend/js/core/darkMode.js"
+    }
+}
