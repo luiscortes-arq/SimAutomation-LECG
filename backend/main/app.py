@@ -9,7 +9,14 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 from backend.functions.fn_00_pipelines.purge_pipeline import run_purge_pipeline
 from backend.functions.fn_00_pipelines.replace_pipeline import run_replace_pipeline
 
-app = Flask(__name__)
+# Define paths for frontend
+FRONTEND_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "frontend"))
+
+app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path='')
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 # Configuration
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
