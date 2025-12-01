@@ -1,8 +1,5 @@
 {
-  "builds": [
-    { "src": "api/*.py", "use": "@vercel/python@4.1.0" },
-    { "src": "frontend/**", "use": "@vercel/static" }
-  ],
+
   "rewrites": [
     { "source": "/api/purge", "destination": "/api/purge.py" },
     { "source": "/api/replace", "destination": "/api/replace.py" },
