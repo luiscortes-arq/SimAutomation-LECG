@@ -1,11 +1,11 @@
 {
-  "functions": {
-    "api/*.py": {
-      "runtime": "python3.11"
-    }
-  },
-  "routes": [
-    { "src": "/api/purge", "dest": "/api/purge.py" },
-    { "src": "/api/replace", "dest": "/api/replace.py" }
+  "builds": [
+    { "src": "api/*.py", "use": "@vercel/python@4.1.0" },
+    { "src": "frontend/**", "use": "@vercel/static" }
+  ],
+  "rewrites": [
+    { "source": "/api/purge", "destination": "/api/purge.py" },
+    { "source": "/api/replace", "destination": "/api/replace.py" },
+    { "source": "/", "destination": "/frontend/main/index.html" }
   ]
 }
