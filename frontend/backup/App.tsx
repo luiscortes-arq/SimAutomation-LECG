@@ -6,8 +6,8 @@ import { CaracteristicaReemplazo as ReplacingFeature } from './components/Caract
 import { DemostracionAntesDespues as BeforeAfterDemo } from './components/DemostracionAntesDespues';
 import { TablaAhorros as SavingsTable } from './components/TablaAhorros';
 import { PieDePagina as Footer } from './components/PieDePagina';
-import { SortingPage } from './pages/SortingPage';
-import { ReplacingPage } from './pages/ReplacingPage';
+import { SortingPage } from './components/SortingPage';
+import { ReplacingPage } from './components/ReplacingPage';
 
 type ViewState = 'home' | 'sorting' | 'replacing';
 
@@ -17,21 +17,7 @@ function App() {
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
-    if (!isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
   };
-
-  // Initialize theme on mount
-  React.useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
 
   const handleNavigate = (view: ViewState) => {
     setCurrentView(view);
@@ -41,10 +27,10 @@ function App() {
     <div className={`${isDarkMode ? 'dark' : ''} h-full w-full`}>
       {/* Global Sticky Navbar - Persists across all views */}
       <StickyNavbar 
-        esModoOscuro={isDarkMode} 
-        alternarTema={toggleTheme} 
-        vistaActual={currentView}
-        alNavegar={handleNavigate}
+        isDarkMode={isDarkMode} 
+        toggleTheme={toggleTheme} 
+        currentView={currentView}
+        onNavigate={handleNavigate}
       />
 
       <div className="h-screen w-screen bg-white dark:bg-black text-zinc-900 dark:text-white transition-colors duration-500 overflow-hidden">
@@ -56,11 +42,11 @@ function App() {
             </div>
             
             <div id="sorting" className="snap-start h-screen w-full relative">
-                <SortingFeature alNavegar={() => setCurrentView('sorting')} />
+                <SortingFeature onNavigate={() => setCurrentView('sorting')} />
             </div>
             
             <div id="replacing" className="snap-start h-screen w-full relative">
-                <ReplacingFeature alNavegar={() => setCurrentView('replacing')} />
+                <ReplacingFeature onNavigate={() => setCurrentView('replacing')} />
             </div>
 
             <div id="demo" className="snap-start h-screen w-full relative">

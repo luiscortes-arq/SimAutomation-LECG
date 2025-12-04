@@ -1,0 +1,34 @@
+/* Sección Principal */
+.ordenamiento-seccion {
+  @apply h-full w-full bg-white dark:bg-[#080a08] flex items-center justify-center relative overflow-hidden transition-colors duration-500;
+}
+
+.ordenamiento-contenedor {
+  @apply max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-20 items-center relative z-10;
+}
+
+/* Contenido de Texto */
+.ordenamiento-contenido-wrapper {
+  @apply order-2 md:order-1 relative z-10;
+}
+
+.ordenamiento-titulo {
+  @apply text-5xl md:text-8xl font-black mb-8 leading-[0.9] text-hermosillo-palm tracking-tight;
+}
+
+.ordenamiento-descripcion {
+  @apply text-lg md:text-xl text-hermosillo-gray dark:text-zinc-400 leading-relaxed max-w-md mb-10 font-light;
+}
+
+.ordenamiento-resalte {
+  @apply text-hermosillo-palm font-medium;
+}
+
+/* Botón */
+.ordenamiento-boton {
+  @apply !bg-hermosillo-palm !hover:bg-[#5a6b3d] text-white border-none flex items-center gap-3 px-8 py-4 rounded-full group cursor-pointer shadow-[0_10px_30px_-10px_rgba(108,125,71,0.5)] transition-all hover:scale-105;
+}
+
+.ordenamiento-boton-texto {
+  @apply text-xs font-bold tracking-widest;
+}

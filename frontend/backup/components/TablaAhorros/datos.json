@@ -1,0 +1,18 @@
+{
+  "tituloPrincipal": "ANÁLISIS DE",
+  "tituloDestacado": "VALOR",
+  "pestanas": {
+    "costos": "COSTOS",
+    "tiempos": "TIEMPOS"
+  },
+  "configuracion": {
+    "semanas": 52,
+    "costoSemanalManual": 8640,
+    "costoSemanalAuto": 2880,
+    "inicioInversion": 34560,
+    "adicionInversion": 138240,
+    "semanaInicioAuto": 8,
+    "tasaManual": 1,
+    "tasaAuto": 3
+  }
+}

@@ -1,28 +1,18 @@
 import React, { useState, useRef } from 'react';
-import { Download, FileJson, FileType, ArrowDown } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Download, FileJson, FileType, ArrowDown, ArrowLeft } from 'lucide-react';
 import { uploadFileDouble } from '../api/api';
-import { BarraNavegacion } from '../components/Navegacion/BarraNavegacion';
 
 interface ReplacingPageProps {
-  esModoOscuro: boolean;
-  alternarTema: () => void;
+  onBack: () => void;
 }
 
-export const ReplacingPage: React.FC<ReplacingPageProps> = ({ esModoOscuro, alternarTema }) => {
-  const navigate = useNavigate();
+export const ReplacingPage: React.FC<ReplacingPageProps> = ({ onBack }) => {
   const [file1, setFile1] = useState<File | null>(null);
   const [file2, setFile2] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   
   const file1InputRef = useRef<HTMLInputElement>(null);
   const file2InputRef = useRef<HTMLInputElement>(null);
-
-  const handleNavigate = (vista: 'home' | 'sorting' | 'replacing') => {
-    if (vista === 'home') navigate('/');
-    if (vista === 'sorting') navigate('/purge');
-    if (vista === 'replacing') window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   const handleFile1Click = () => file1InputRef.current?.click();
   const handleFile2Click = () => file2InputRef.current?.click();
@@ -58,16 +48,17 @@ export const ReplacingPage: React.FC<ReplacingPageProps> = ({ esModoOscuro, alte
 
   return (
     <div className="bg-white dark:bg-black text-zinc-900 dark:text-white min-h-screen flex flex-col font-sans animate-in fade-in duration-500 pt-20">
-      <BarraNavegacion 
-        esModoOscuro={esModoOscuro} 
-        alternarTema={alternarTema} 
-        vistaActual="replacing"
-        alNavegar={handleNavigate}
-      />
       
       {/* --- PREMIUM BACKGROUND --- */}
       <div className="absolute inset-0 bg-[linear-gradient(45deg,#254467_1px,transparent_1px),linear-gradient(-45deg,#254467_1px,transparent_1px)] bg-[size:40px_40px] opacity-[0.05] dark:opacity-[0.1] pointer-events-none fixed"></div>
       <div className="absolute left-[-10%] bottom-[-10%] w-[800px] h-[800px] bg-hermosillo-mediumBlue/10 rounded-full blur-[150px] pointer-events-none fixed" />
+
+      {/* Back Button */}
+      <div className="absolute top-6 left-6 z-50">
+          <button onClick={onBack} className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors cursor-pointer">
+              <ArrowLeft size={24} className="text-hermosillo-darkBlue dark:text-white" />
+          </button>
+      </div>
 
       {/* Content */}
       <main className="flex-grow flex items-center justify-center relative z-10 px-6">
