@@ -9,6 +9,7 @@ interface SortingPageProps {
 export const SortingPage: React.FC<SortingPageProps> = ({ onBack }) => {
   const [file, setFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [outputFilename, setOutputFilename] = useState('purgado');
   
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -28,7 +29,8 @@ export const SortingPage: React.FC<SortingPageProps> = ({ onBack }) => {
 
     setIsProcessing(true);
     try {
-      await uploadFileSingle(file, '/api/purge', 'purgado.udatasmith');
+      const filename = outputFilename.endsWith('.udatasmith') ? outputFilename : `${outputFilename}.udatasmith`;
+      await uploadFileSingle(file, '/api/purge', filename);
     } catch (error) {
       console.error(error);
       alert('Error al procesar: ' + (error as Error).message);
@@ -58,8 +60,8 @@ export const SortingPage: React.FC<SortingPageProps> = ({ onBack }) => {
             <div className="mb-8">
             </div>
 
-            <h1 className="text-5xl md:text-8xl font-black mb-16 text-hermosillo-darkBlue dark:text-white tracking-tighter">
-                HERRAMIENTA DE <span className="text-hermosillo-palm">ORDEN</span>
+            <h1 className="text-5xl md:text-8xl font-black mb-16 text-hermosillo-palm dark:text-hermosillo-palm tracking-tighter">
+                PURGE
             </h1>
             
             <div className="flex flex-col md:flex-row gap-8 w-full max-w-3xl justify-center items-center">
@@ -80,7 +82,7 @@ export const SortingPage: React.FC<SortingPageProps> = ({ onBack }) => {
                         <span className="block text-2xl font-bold text-hermosillo-darkBlue dark:text-white mb-1 tracking-wider">
                             {file ? file.name : 'ENTRADA'}
                         </span>
-                        <span className="text-xs text-hermosillo-palm uppercase tracking-widest font-bold">Cargar Archivo .RVT / .IFC</span>
+                        <span className="text-xs text-hermosillo-palm uppercase tracking-widest font-bold">Cargar Archivo .UDATASMITH</span>
                     </div>
                 </button>
 
@@ -90,6 +92,21 @@ export const SortingPage: React.FC<SortingPageProps> = ({ onBack }) => {
                 </div>
                 <div className="block md:hidden text-hermosillo-palm/30">
                     <ArrowLeft size={32} className="-rotate-90" />
+                </div>
+
+                {/* Filename Input */}
+                <div className="w-full md:w-1/2 flex flex-col gap-3">
+                    <label className="text-sm font-bold text-hermosillo-darkBlue dark:text-white uppercase tracking-wider">
+                        Nombre del archivo de salida
+                    </label>
+                    <input 
+                        type="text" 
+                        value={outputFilename}
+                        onChange={(e) => setOutputFilename(e.target.value)}
+                        placeholder="purgado"
+                        className="px-4 py-3 rounded-xl border border-hermosillo-palm/30 bg-white/50 dark:bg-zinc-900/50 text-hermosillo-darkBlue dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-hermosillo-palm/50 font-mono backdrop-blur-sm"
+                    />
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400">Se agregará .udatasmith automáticamente</span>
                 </div>
 
                 {/* Download Button */}

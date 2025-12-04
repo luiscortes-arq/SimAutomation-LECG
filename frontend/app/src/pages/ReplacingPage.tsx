@@ -10,6 +10,7 @@ export const ReplacingPage: React.FC<ReplacingPageProps> = ({ onBack }) => {
   const [file1, setFile1] = useState<File | null>(null);
   const [file2, setFile2] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [outputFilename, setOutputFilename] = useState('reemplazado');
   
   const file1InputRef = useRef<HTMLInputElement>(null);
   const file2InputRef = useRef<HTMLInputElement>(null);
@@ -37,7 +38,8 @@ export const ReplacingPage: React.FC<ReplacingPageProps> = ({ onBack }) => {
 
     setIsProcessing(true);
     try {
-      await uploadFileDouble(file1, file2, '/api/replace', 'reemplazado.udatasmith');
+      const filename = outputFilename.endsWith('.udatasmith') ? outputFilename : `${outputFilename}.udatasmith`;
+      await uploadFileDouble(file1, file2, '/api/replace', filename);
     } catch (error) {
       console.error(error);
       alert('Error al procesar: ' + (error as Error).message);
@@ -119,6 +121,21 @@ export const ReplacingPage: React.FC<ReplacingPageProps> = ({ onBack }) => {
                 {/* Connection Arrow */}
                 <div className="flex justify-center text-hermosillo-mediumBlue/50">
                     <ArrowDown size={32} className="animate-bounce" />
+                </div>
+
+                {/* Filename Input */}
+                <div className="flex flex-col gap-3">
+                    <label className="text-sm font-bold text-hermosillo-darkBlue dark:text-white uppercase tracking-wider text-center">
+                        Nombre del archivo de salida
+                    </label>
+                    <input 
+                        type="text" 
+                        value={outputFilename}
+                        onChange={(e) => setOutputFilename(e.target.value)}
+                        placeholder="reemplazado"
+                        className="px-4 py-3 rounded-xl border border-hermosillo-mediumBlue/30 bg-white/50 dark:bg-zinc-900/50 text-hermosillo-darkBlue dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-hermosillo-mediumBlue/50 font-mono backdrop-blur-sm text-center"
+                    />
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 text-center">Se agregará .udatasmith automáticamente</span>
                 </div>
 
                 {/* Download Action */}
