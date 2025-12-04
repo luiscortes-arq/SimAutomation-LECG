@@ -73,16 +73,6 @@ export const Hero: React.FC = () => {
           </p>
         </div>
       </motion.div>
-      
-      {/* Scroll Indicator - Minimalist */}
-      <motion.div 
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40 mix-blend-difference"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <span className="text-[9px] uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-500">Deslizar</span>
-        <div className="w-[1px] h-16 bg-gradient-to-b from-zinc-500 to-transparent"></div>
-      </motion.div>
     </section>
   );
 };

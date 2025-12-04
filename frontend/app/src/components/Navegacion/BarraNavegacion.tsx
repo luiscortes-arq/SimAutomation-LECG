@@ -72,25 +72,24 @@ export const BarraNavegacion: React.FC<PropiedadesBarraNavegacion> = ({
           {/* Sección Logo */}
           <div className="flex items-center gap-6">
              <Logo onClick={() => alNavegar('home')} />
-             
-             {vistaActual === 'home' ? (
-                <a 
-                  href="#home" 
-                  onClick={(e) => manejarDesplazamiento(e, 'home')}
-                  className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-white/10 transition-colors cursor-pointer" 
-                  aria-label="Inicio"
-                >
-                  <Home size={18} className="text-zinc-600 dark:text-zinc-400" />
-                </a>
-             ) : (
-                <BotonVolver alNavegar={() => alNavegar('home')} />
-             )}
           </div>
 
           <div className="flex items-center gap-8">
             {/* Enlaces de Navegación - Siempre Visibles */}
             <div className="hidden sm:flex items-center gap-8">
-              <EnlaceNavegacion href="#sorting" texto="Orden" onClick={(e) => manejarDesplazamiento(e, 'sorting')} />
+              <EnlaceNavegacion href="#sorting" texto="Purge" onClick={(e) => manejarDesplazamiento(e, 'sorting')} />
+              {vistaActual === 'home' ? (
+                 <a 
+                   href="#home" 
+                   onClick={(e) => manejarDesplazamiento(e, 'home')}
+                   className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-white/10 transition-colors cursor-pointer" 
+                   aria-label="Inicio"
+                 >
+                   <Home size={18} className="text-zinc-900 dark:text-zinc-400" />
+                 </a>
+              ) : (
+                 <BotonVolver alNavegar={() => alNavegar('home')} />
+              )}
               <EnlaceNavegacion href="#replacing" texto="Replace" onClick={(e) => manejarDesplazamiento(e, 'replacing')} />
               <EnlaceNavegacion href="#demo" texto="Demo" onClick={(e) => manejarDesplazamiento(e, 'demo')} />
               <EnlaceNavegacion href="#savings" texto="Ahorros" onClick={(e) => manejarDesplazamiento(e, 'savings')} />
