@@ -1,16 +1,26 @@
 import React, { useState, useRef } from 'react';
 import { Upload, Download, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { uploadFileSingle } from '../api/api';
+import { BarraNavegacion } from '../components/Navegacion/BarraNavegacion';
 
 interface SortingPageProps {
-  onBack: () => void;
+  esModoOscuro: boolean;
+  alternarTema: () => void;
 }
 
-export const SortingPage: React.FC<SortingPageProps> = ({ onBack }) => {
+export const SortingPage: React.FC<SortingPageProps> = ({ esModoOscuro, alternarTema }) => {
+  const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleNavigate = (vista: 'home' | 'sorting' | 'replacing') => {
+    if (vista === 'home') navigate('/');
+    if (vista === 'replacing') navigate('/replace');
+    if (vista === 'sorting') window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleFileClick = () => fileInputRef.current?.click();
 
@@ -39,17 +49,16 @@ export const SortingPage: React.FC<SortingPageProps> = ({ onBack }) => {
 
   return (
     <div className="bg-white dark:bg-black text-zinc-900 dark:text-white min-h-screen flex flex-col font-sans animate-in fade-in duration-500 pt-20">
+      <BarraNavegacion 
+        esModoOscuro={esModoOscuro} 
+        alternarTema={alternarTema} 
+        vistaActual="sorting"
+        alNavegar={handleNavigate}
+      />
       
       {/* --- PREMIUM BACKGROUND --- */}
       <div className="absolute inset-0 h-full w-full bg-[radial-gradient(#6C7D47_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_100%,transparent_100%)] opacity-[0.15] dark:opacity-[0.1] pointer-events-none fixed"></div>
       <div className="absolute right-[-10%] top-[-10%] w-[600px] h-[600px] bg-hermosillo-palm/10 rounded-full blur-[120px] pointer-events-none fixed" />
-
-      {/* Back Button */}
-      <div className="absolute top-6 left-6 z-50">
-          <button onClick={onBack} className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-              <ArrowLeft size={24} className="text-hermosillo-darkBlue dark:text-white" />
-          </button>
-      </div>
 
       {/* Content */}
       <main className="flex-grow flex items-center justify-center relative z-10 px-6">

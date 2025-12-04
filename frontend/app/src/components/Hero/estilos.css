@@ -1,0 +1,52 @@
+/* Hero Section */
+.hero-seccion {
+  @apply h-full flex flex-col justify-center items-center text-center px-4 relative overflow-hidden bg-zinc-50 dark:bg-[#050505] transition-colors duration-500;
+}
+
+/* Título Hero */
+.hero-titulo-contenedor {
+  @apply text-6xl md:text-9xl font-black tracking-tighter leading-[0.85] text-hermosillo-darkBlue dark:text-white mb-8 drop-shadow-2xl;
+}
+
+.hero-titulo-prefijo {
+  @apply block text-zinc-300 dark:text-white/10 text-4xl md:text-7xl mb-2;
+}
+
+.hero-titulo-principal {
+  @apply block bg-clip-text text-transparent bg-gradient-to-b from-hermosillo-darkBlue via-hermosillo-mediumBlue to-hermosillo-stateBlue dark:from-white dark:via-zinc-200 dark:to-zinc-500;
+}
+
+/* Subtítulo */
+.hero-subtitulo-contenedor {
+  @apply mb-12 relative;
+}
+
+.hero-separador {
+  @apply h-px w-24 bg-gradient-to-r from-transparent via-hermosillo-orange to-transparent mx-auto mb-6 opacity-50;
+}
+
+.hero-subtitulo-texto {
+  @apply relative text-lg md:text-2xl font-light tracking-[0.5em] text-hermosillo-steelBlue dark:text-hermosillo-paleBlue/80 uppercase;
+}
+
+/* Descripción */
+.hero-descripcion {
+  @apply text-base md:text-xl text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed font-light;
+}
+
+.hero-resalte {
+  @apply text-hermosillo-orange font-medium;
+}
+
+/* Indicador Scroll */
+.hero-scroll-contenedor {
+  @apply absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40 mix-blend-difference;
+}
+
+.hero-scroll-texto {
+  @apply text-[9px] uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-500;
+}
+
+.hero-scroll-linea {
+  @apply w-[1px] h-16 bg-gradient-to-b from-zinc-500 to-transparent;
+}
