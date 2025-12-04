@@ -14,7 +14,11 @@ try:
 except ImportError as e:
     print(f"Import error: {e}")
     print(f"sys.path: {sys.path}")
-    raise
+    # Create dummy functions if imports fail
+    def run_purge_pipeline(input_path, output_path):
+        return False
+    def run_replace_pipeline(target_path, template_path, output_path):
+        return False
 
 app = Flask(__name__)
 CORS(app)
@@ -22,7 +26,12 @@ CORS(app)
 # Vercel only allows writing to /tmp
 TEMP_DIR = "/tmp"
 
-@app.route('/api/health', methods=['GET'])
+@app.route('/')
+@app.route('/api')
+def index():
+    return jsonify({"message": "SIM Automation API", "version": "1.0"})
+
+@app.route('/api/health')
 def health():
     return jsonify({"status": "ok"})
 
@@ -81,45 +90,4 @@ def replace():
         import traceback
         return jsonify({"error": str(e), "traceback": traceback.format_exc()}), 500
 
-# Vercel serverless handler
-def handler(event, context):
-    """
-    Vercel serverless function handler.
-    This wraps the Flask app to work with Vercel's serverless runtime.
-    """
-    from werkzeug.wrappers import Request, Response
-    
-    # Create a WSGI environ from the Vercel event
-    environ = {
-        'REQUEST_METHOD': event.get('httpMethod', 'GET'),
-        'SCRIPT_NAME': '',
-        'PATH_INFO': event.get('path', '/'),
-        'QUERY_STRING': event.get('queryStringParameters', ''),
-        'CONTENT_TYPE': event.get('headers', {}).get('content-type', ''),
-        'CONTENT_LENGTH': event.get('headers', {}).get('content-length', ''),
-        'SERVER_NAME': 'vercel',
-        'SERVER_PORT': '443',
-        'SERVER_PROTOCOL': 'HTTP/1.1',
-        'wsgi.version': (1, 0),
-        'wsgi.url_scheme': 'https',
-        'wsgi.input': None,
-        'wsgi.errors': sys.stderr,
-        'wsgi.multithread': False,
-        'wsgi.multiprocess': False,
-        'wsgi.run_once': False,
-    }
-    
-    # Add headers
-    for key, value in event.get('headers', {}).items():
-        key = key.replace('-', '_').upper()
-        if key not in ('CONTENT_TYPE', 'CONTENT_LENGTH'):
-            environ[f'HTTP_{key}'] = value
-    
-    with app.request_context(environ):
-        response = app.full_dispatch_request()
-        return {
-            'statusCode': response.status_code,
-            'headers': dict(response.headers),
-            'body': response.get_data(as_text=True)
-        }
 
