@@ -22,12 +22,6 @@ CORS(app)
 # Vercel only allows writing to /tmp
 TEMP_DIR = "/tmp"
 
-@app.route('/')
-@app.route('/api')
-@app.route('/api/')
-def index():
-    return jsonify({"message": "SIM Automation API", "status": "running"})
-
 @app.route('/api/health', methods=['GET'])
 def health():
     return jsonify({"status": "ok"})
