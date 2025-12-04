@@ -9,8 +9,8 @@ sys.path.insert(0, root_dir)
 
 # Import pipeline functions
 try:
-    from backend.functions.fn_00_pipelines.purge_pipeline import run_purge_pipeline
-    from backend.functions.fn_00_pipelines.replace_pipeline import run_replace_pipeline
+    from backend.pipelines.purge_pipeline import run_purge_pipeline
+    from backend.pipelines.replace_pipeline import run_replace_pipeline
 except ImportError as e:
     print(f"Import error: {e}")
     print(f"sys.path: {sys.path}")

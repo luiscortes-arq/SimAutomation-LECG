@@ -1,9 +1,9 @@
 import json
 import os
-from backend.functions.fn_03_purge.purge import apply_purge, PurgeRule
-from backend.functions.fn_04_rename.rename import apply_fixed_renaming, apply_contextual_renaming
-from backend.functions.fn_05_sorting.sorting import apply_sorting
-from backend.functions.fn_06_grouping.grouping import apply_grouping
+from backend.purge.purge import apply_purge, PurgeRule
+from backend.rename.rename import apply_fixed_renaming, apply_contextual_renaming
+from backend.sorting.sorting import apply_sorting
+from backend.grouping.grouping import apply_grouping
 
 def flatten_root_children(node):
     """
@@ -39,17 +39,17 @@ def process_tree(root):
     # 1. Load Rules & Configs
     
     # Purge Config
-    purge_config = load_local_config(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "fn_03_purge", "purge.py")), "purge.json")
+    purge_config = load_local_config(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "purge", "purge.py")), "purge.json")
     purge_rules = [PurgeRule(r["tag"], [], r["attributes"]) for r in purge_config.get("rules", [])]
     
     # Rename Config
-    rename_config = load_local_config(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "fn_04_rename", "rename.py")), "rename.json")
+    rename_config = load_local_config(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "rename", "rename.py")), "rename.json")
     
     # Sorting Config
-    sorting_config = load_local_config(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "fn_05_sorting", "sorting.py")), "sorting.json")
+    sorting_config = load_local_config(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "sorting", "sorting.py")), "sorting.json")
     
     # Grouping Config
-    grouping_config = load_local_config(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "fn_06_grouping", "grouping.py")), "grouping.json")
+    grouping_config = load_local_config(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "grouping", "grouping.py")), "grouping.json")
 
     # 2. Purge
     removed = apply_purge(root, purge_rules)

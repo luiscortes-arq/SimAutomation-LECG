@@ -1,10 +1,10 @@
 import os
 import sys
-from backend.functions.fn_01_input.input import read_udatasmith
-from backend.functions.fn_09_output.output import save_udatasmith
-from backend.functions.fn_07_search_replace.search_replace import load_template_data, apply_replace
-from backend.functions.fn_02_processor.processor import process_tree
-from backend.functions.fn_08_prettier.prettier import load_formatting_rules, get_formatting_params
+from backend.input.input import read_udatasmith
+from backend.output.output import save_udatasmith
+from backend.search_replace.search_replace import load_template_data, apply_replace
+from backend.processor.processor import process_tree
+from backend.prettier.prettier import load_formatting_rules, get_formatting_params
 
 def run_replace_pipeline(target_path, template_path, output_path):
     # 1. Load & Process Template
@@ -34,7 +34,7 @@ def run_replace_pipeline(target_path, template_path, output_path):
     
     # 4. Save
     # Adjusted path: ../../fn_08_prettier/prettier.json
-    prettier_config_path = os.path.join(os.path.dirname(__file__), "..", "fn_08_prettier", "prettier.json")
+    prettier_config_path = os.path.join(os.path.dirname(__file__), "..", "prettier", "prettier.json")
     formatting_config = load_formatting_rules(prettier_config_path)
     indent, compact, expanded = get_formatting_params(formatting_config)
     
