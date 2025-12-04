@@ -2,20 +2,31 @@ from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 import os
 import sys
-import tempfile
 
 # Add the root directory to sys.path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, root_dir)
 
 # Import pipeline functions
-from backend.functions.fn_00_pipelines.purge_pipeline import run_purge_pipeline
-from backend.functions.fn_00_pipelines.replace_pipeline import run_replace_pipeline
+try:
+    from backend.functions.fn_00_pipelines.purge_pipeline import run_purge_pipeline
+    from backend.functions.fn_00_pipelines.replace_pipeline import run_replace_pipeline
+except ImportError as e:
+    print(f"Import error: {e}")
+    print(f"sys.path: {sys.path}")
+    raise
 
 app = Flask(__name__)
 CORS(app)
 
 # Vercel only allows writing to /tmp
 TEMP_DIR = "/tmp"
+
+@app.route('/')
+@app.route('/api')
+@app.route('/api/')
+def index():
+    return jsonify({"message": "SIM Automation API", "status": "running"})
 
 @app.route('/api/health', methods=['GET'])
 def health():
@@ -45,7 +56,8 @@ def purge():
         
         return jsonify({"error": "Purge failed"}), 500
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        import traceback
+        return jsonify({"error": str(e), "traceback": traceback.format_exc()}), 500
 
 @app.route('/api/replace', methods=['POST'])
 def replace():
@@ -72,9 +84,10 @@ def replace():
             
         return jsonify({"error": "Replace failed"}), 500
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        import traceback
+        return jsonify({"error": str(e), "traceback": traceback.format_exc()}), 500
 
-# Vercel serverless function handler
-def handler(request):
-    with app.request_context(request.environ):
-        return app.full_dispatch_request()
+# Export the Flask app for Vercel
+# Vercel will automatically detect this and use it as the WSGI app
+if __name__ == '__main__':
+    app.run(debug=True)
