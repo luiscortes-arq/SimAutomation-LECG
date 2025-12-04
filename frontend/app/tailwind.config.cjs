@@ -8,11 +8,20 @@ module.exports = {
     extend: {
       colors: {
         hermosillo: {
-          darkBlue: '#1a2b4b',
-          mediumBlue: '#254467',
-          stateBlue: '#4a6fa5',
-          palm: '#6c7d47',
-          paleBlue: '#a0b4d0',
+          darkBlue: '#254467',  // PMS 7696C
+          orange: '#E65A28',    // PMS 2026C
+          mediumBlue: '#3f6183', // PMS 2152
+          stateBlue: '#6990AB', // PMS 2170
+          paleBlue: '#BFD1E5',  // PMS 657
+          gray: '#67727A',      // PMS 430
+          steelBlue: '#5C7488', // PMS 5405
+          teal: '#1A5E63',      // PMS 5473C
+          seaweed: '#028090',   // PMS 5473C (Variant)
+          palm: '#6C7D47',      // PMS 7490
+          gold: '#EFB628',      // PMS 7409C
+          red: '#C42021',       // PMS 711
+          taupe: '#54494B',     // PMS 438
+          wine: '#542344',      // PMS 525
         }
       },
       animation: {
