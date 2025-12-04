@@ -1,0 +1,17 @@
+{
+  "builds": [
+    {
+      "src": "backend/main/app.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "frontend/app/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    }
+  ],
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/backend/main/app.py" },
+    { "source": "/(.*)", "destination": "/frontend/app/$1" }
+  ]
+}

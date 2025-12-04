@@ -1,8 +1,0 @@
-{
-
-  "rewrites": [
-    { "source": "/api/purge", "destination": "/api/purge.py" },
-    { "source": "/api/replace", "destination": "/api/replace.py" },
-    { "source": "/", "destination": "/frontend/main/index.html" }
-  ]
-}
