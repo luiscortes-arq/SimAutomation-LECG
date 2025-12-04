@@ -3,35 +3,21 @@ from flask_cors import CORS
 import os
 import sys
 import tempfile
-import shutil
 
-# Add backend directory to sys.path to allow imports
-# Adjusted path: ../..
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+# Add the root directory to sys.path for imports
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+# Import pipeline functions
 from backend.functions.fn_00_pipelines.purge_pipeline import run_purge_pipeline
 from backend.functions.fn_00_pipelines.replace_pipeline import run_replace_pipeline
 
-# Define paths for frontend
-FRONTEND_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "app", "dist"))
+app = Flask(__name__)
+CORS(app)
 
-app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path='')
-CORS(app) # Enable CORS for development
-
-@app.route('/')
-def index():
-    return app.send_static_file('index.html')
-
-# Configuration
-# Configuration
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 # Vercel only allows writing to /tmp
 TEMP_DIR = "/tmp"
-if os.name == 'nt': # For local Windows development
-    TEMP_DIR = os.path.join(BASE_DIR, "tmp")
-    os.makedirs(TEMP_DIR, exist_ok=True)
 
-@app.route('/health', methods=['GET'])
+@app.route('/api/health', methods=['GET'])
 def health():
     return jsonify({"status": "ok"})
 
@@ -60,9 +46,6 @@ def purge():
         return jsonify({"error": "Purge failed"}), 500
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    finally:
-        # Cleanup temp files if needed (optional, depends on requirements)
-        pass
 
 @app.route('/api/replace', methods=['POST'])
 def replace():
@@ -91,5 +74,7 @@ def replace():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+# Vercel serverless function handler
+def handler(request):
+    with app.request_context(request.environ):
+        return app.full_dispatch_request()
