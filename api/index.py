@@ -81,7 +81,45 @@ def replace():
         import traceback
         return jsonify({"error": str(e), "traceback": traceback.format_exc()}), 500
 
-# Export the Flask app for Vercel
-# Vercel will automatically detect this and use it as the WSGI app
-if __name__ == '__main__':
-    app.run(debug=True)
+# Vercel serverless handler
+def handler(event, context):
+    """
+    Vercel serverless function handler.
+    This wraps the Flask app to work with Vercel's serverless runtime.
+    """
+    from werkzeug.wrappers import Request, Response
+    
+    # Create a WSGI environ from the Vercel event
+    environ = {
+        'REQUEST_METHOD': event.get('httpMethod', 'GET'),
+        'SCRIPT_NAME': '',
+        'PATH_INFO': event.get('path', '/'),
+        'QUERY_STRING': event.get('queryStringParameters', ''),
+        'CONTENT_TYPE': event.get('headers', {}).get('content-type', ''),
+        'CONTENT_LENGTH': event.get('headers', {}).get('content-length', ''),
+        'SERVER_NAME': 'vercel',
+        'SERVER_PORT': '443',
+        'SERVER_PROTOCOL': 'HTTP/1.1',
+        'wsgi.version': (1, 0),
+        'wsgi.url_scheme': 'https',
+        'wsgi.input': None,
+        'wsgi.errors': sys.stderr,
+        'wsgi.multithread': False,
+        'wsgi.multiprocess': False,
+        'wsgi.run_once': False,
+    }
+    
+    # Add headers
+    for key, value in event.get('headers', {}).items():
+        key = key.replace('-', '_').upper()
+        if key not in ('CONTENT_TYPE', 'CONTENT_LENGTH'):
+            environ[f'HTTP_{key}'] = value
+    
+    with app.request_context(environ):
+        response = app.full_dispatch_request()
+        return {
+            'statusCode': response.status_code,
+            'headers': dict(response.headers),
+            'body': response.get_data(as_text=True)
+        }
+
