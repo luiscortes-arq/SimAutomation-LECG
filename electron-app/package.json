@@ -1,0 +1,57 @@
+{
+  "name": "simautomation",
+  "version": "1.0.0",
+  "description": "SimAutomation Desktop Application",
+  "main": "electron.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "package:win": "electron-builder --win --x64"
+  },
+  "author": "LECG",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "electron-packager": "^17.1.2"
+  },
+  "build": {
+    "appId": "com.lecg.simautomation",
+    "productName": "SimAutomation",
+    "directories": {
+      "output": "build/installers"
+    },
+    "files": [
+      "electron.js",
+      "preload.js",
+      "build/renderer/**/*",
+      "backend/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "msi",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "msi": {
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

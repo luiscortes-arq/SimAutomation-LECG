@@ -1,0 +1,91 @@
+/* Sección Principal */
+.reemplazo-seccion {
+  @apply h-full w-full bg-zinc-50 dark:bg-[#02050a] flex items-center justify-center relative overflow-hidden transition-colors duration-500;
+}
+
+.reemplazo-contenedor {
+  @apply max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-20 items-center relative z-10;
+}
+
+/* Contenido de Texto */
+.reemplazo-contenido-wrapper {
+  @apply order-2;
+}
+
+.reemplazo-titulo {
+  @apply text-5xl md:text-8xl font-black mb-8 leading-[0.9] text-hermosillo-mediumBlue tracking-tight;
+}
+
+.reemplazo-descripcion {
+  @apply text-lg md:text-xl text-hermosillo-gray dark:text-zinc-400 leading-relaxed max-w-md mb-10 font-light;
+}
+
+.reemplazo-resalte {
+  @apply text-hermosillo-mediumBlue font-medium;
+}
+
+/* Botón */
+.reemplazo-boton {
+  @apply !bg-hermosillo-mediumBlue !hover:bg-hermosillo-darkBlue text-white border-none flex items-center gap-3 px-8 py-4 rounded-full group cursor-pointer shadow-[0_10px_30px_-10px_rgba(63,97,131,0.5)] transition-all hover:scale-105;
+}
+
+.reemplazo-boton-texto {
+  @apply text-xs font-bold tracking-widest;
+}
+
+/* Animación */
+.reemplazo-animacion-contenedor {
+  @apply order-1 flex justify-center items-center h-[50vh] relative perspective-[2000px];
+}
+
+.reemplazo-tarjeta-header {
+  @apply flex justify-between items-center mb-10 border-b border-zinc-200 dark:border-white/5 pb-6;
+}
+
+.reemplazo-id-contenedor {
+  @apply flex items-center gap-2;
+}
+
+.reemplazo-punto-pulso {
+  @apply w-2 h-2 rounded-full bg-hermosillo-mediumBlue animate-pulse;
+}
+
+.reemplazo-id-texto {
+  @apply text-hermosillo-mediumBlue font-mono text-[10px] font-bold tracking-widest uppercase;
+}
+
+.reemplazo-etiqueta-modo {
+  @apply px-3 py-1 bg-hermosillo-darkBlue/10 dark:bg-white/5 border border-hermosillo-darkBlue/20 dark:border-white/10 rounded-full text-[9px] text-hermosillo-darkBlue dark:text-white font-mono tracking-wider;
+}
+
+.reemplazo-linea-conexion {
+  @apply absolute left-[35%] top-2 bottom-2 w-px bg-zinc-200 dark:bg-white/5;
+}
+
+.reemplazo-item-activo {
+  @apply flex items-center justify-between group relative z-10;
+}
+
+.reemplazo-texto-legacy {
+  @apply text-zinc-400 font-mono text-xs line-through decoration-hermosillo-red/50;
+}
+
+.reemplazo-texto-core {
+  @apply text-hermosillo-darkBlue dark:text-hermosillo-stateBlue font-mono text-sm font-bold tracking-wide;
+}
+
+.reemplazo-item-inactivo {
+  @apply flex items-center justify-between opacity-50 relative z-10;
+}
+
+.reemplazo-item-oculto {
+  @apply flex items-center justify-between opacity-30 relative z-10;
+}
+
+.reemplazo-texto-mono {
+  @apply text-zinc-500 font-mono text-xs;
+}
+
+.reemplazo-punto-conector {
+  @apply w-1.5 h-1.5 bg-zinc-300 dark:bg-zinc-700 rounded-full z-20;
+}

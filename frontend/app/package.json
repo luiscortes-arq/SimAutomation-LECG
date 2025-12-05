@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && npx tailwindcss -i ./src/index.css -o ./src/output.css && vite build",
+    "build": "tsc -b && vite build",
+    "build:electron": "tsc -b && vite build --outDir ../../electron-app/dist",
     "vercel-build": "npm run build",
     "lint": "eslint .",
     "preview": "vite preview"

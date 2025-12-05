@@ -26,7 +26,24 @@ module.exports = {
           red: '#C42021',       // PMS 711
           taupe: '#54494B',     // PMS 438
           wine: '#542344',      // PMS 525
+        },
+        ui: {
+          primary: '#2997ff',
+          primaryHover: '#0077ED',
+          background: '#ffffff',
+          backgroundDark: '#020202',
+          cardDark: '#070707',
+          surfaceDark: '#0a0f16',
+          tooltipDark: '#050505',
+        },
+        charts: {
+          grid: '#333333',
         }
+      },
+      boxShadow: {
+        'tooltip': '0 0 30px rgba(0,0,0,0.5)',
+        'chart': '0 0 8px #254467',
+        'glow-palm': '0 10px 30px -10px rgba(108,125,71,0.5)',
       },
       animation: {
         'fade-in': 'fade-in 0.5s ease-out',

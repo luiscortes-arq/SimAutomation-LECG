@@ -1,0 +1,6 @@
+﻿
+> frontend@0.0.0 build
+> tsc -b && vite build
+
+src/components/01-Inicio/Inicio.tsx(4,1): error TS6133: 'theme' is declared but its value is never read.
+src/components/01-Inicio/Inicio.tsx(5,1): error TS6133: 'backgrounds' is declared but its value is never read.
