@@ -71,7 +71,7 @@ export const BarraNavegacion: React.FC<PropiedadesBarraNavegacion> = ({
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           {/* Sección Logo */}
           <div className="flex items-center gap-6">
-             <Logo onClick={() => alNavegar('home')} />
+             <Logo onClick={() => alNavegar('home')} esModoOscuro={esModoOscuro} />
           </div>
 
           <div className="flex items-center gap-8">
