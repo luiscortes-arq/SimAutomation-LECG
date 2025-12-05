@@ -1,6 +1,5 @@
 import React from 'react';
 import logoSvg from '../../assets/logo/logo.svg';
-import logoLightSvg from '../../assets/logo/logo-light.svg';
 
 interface PropiedadesLogo {
   claseTexto?: string;
@@ -19,9 +18,11 @@ export const Logo: React.FC<PropiedadesLogo> = ({
       onClick={onClick}
     >
       <img 
-        src={esModoOscuro ? logoSvg : logoLightSvg} 
+        src={logoSvg} 
         alt="Logo" 
-        className="h-10 w-auto" 
+        className={`h-10 w-auto transition-all duration-300 ${
+          esModoOscuro ? '' : 'invert hue-rotate-180'
+        }`}
       />
     </div>
   );
