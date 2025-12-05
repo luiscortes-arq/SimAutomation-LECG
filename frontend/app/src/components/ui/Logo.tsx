@@ -15,7 +15,7 @@ export const Logo: React.FC<PropiedadesLogo> = ({
       className={`flex items-center ${onClick ? 'cursor-pointer' : ''}`}
       onClick={onClick}
     >
-      <img src={logoSvg} alt="Logo" className="h-10 w-auto invert dark:invert-0 dark:brightness-110" />
+      <img src={logoSvg} alt="Logo" className="h-10 w-auto brightness-0 dark:brightness-110" />
     </div>
   );
 };
