@@ -17,7 +17,15 @@ export const SortingPage: React.FC<SortingPageProps> = ({ onBack }) => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
+      const selectedFile = e.target.files[0];
+      const maxSize = 4.5 * 1024 * 1024; // 4.5MB en bytes
+      
+      if (selectedFile.size > maxSize) {
+        alert(`El archivo es demasiado grande (${(selectedFile.size / 1024 / 1024).toFixed(2)}MB).\n\nEl límite de Vercel es 4.5MB.\n\nPor favor, usa un archivo más pequeño o considera actualizar a Vercel Pro.`);
+        return;
+      }
+      
+      setFile(selectedFile);
     }
   };
 
@@ -27,13 +35,25 @@ export const SortingPage: React.FC<SortingPageProps> = ({ onBack }) => {
       return;
     }
 
+    // Double-check file size before uploading
+    const maxSize = 4.5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert(`El archivo es demasiado grande (${(file.size / 1024 / 1024).toFixed(2)}MB).\n\nEl límite de Vercel es 4.5MB.`);
+      return;
+    }
+
     setIsProcessing(true);
     try {
       const filename = outputFilename.endsWith('.udatasmith') ? outputFilename : `${outputFilename}.udatasmith`;
       await uploadFileSingle(file, '/api/purge', filename);
     } catch (error) {
       console.error(error);
-      alert('Error al procesar: ' + (error as Error).message);
+      const errorMessage = (error as Error).message;
+      if (errorMessage.includes('413') || errorMessage.includes('too large')) {
+        alert('Error: El archivo es demasiado grande para Vercel (límite: 4.5MB).\n\nPor favor usa un archivo más pequeño.');
+      } else {
+        alert('Error al procesar: ' + errorMessage);
+      }
     } finally {
       setIsProcessing(false);
     }

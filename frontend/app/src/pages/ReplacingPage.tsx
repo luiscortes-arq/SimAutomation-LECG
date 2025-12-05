@@ -20,13 +20,33 @@ export const ReplacingPage: React.FC<ReplacingPageProps> = ({ onBack }) => {
 
   const handleFile1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFile1(e.target.files[0]);
+      const selectedFile = e.target.files[0];
+      const maxSize = 4.5 * 1024 * 1024; // 4.5MB en bytes
+      const file2Size = file2?.size || 0;
+      const totalSize = selectedFile.size + file2Size;
+      
+      if (totalSize > maxSize) {
+        alert(`Los archivos combinados son demasiado grandes (${(totalSize / 1024 / 1024).toFixed(2)}MB).\n\nEl límite de Vercel es 4.5MB total.\n\nPor favor, usa archivos más pequeños.`);
+        return;
+      }
+      
+      setFile1(selectedFile);
     }
   };
 
   const handleFile2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFile2(e.target.files[0]);
+      const selectedFile = e.target.files[0];
+      const maxSize = 4.5 * 1024 * 1024;
+      const file1Size = file1?.size || 0;
+      const totalSize = selectedFile.size + file1Size;
+      
+      if (totalSize > maxSize) {
+        alert(`Los archivos combinados son demasiado grandes (${(totalSize / 1024 / 1024).toFixed(2)}MB).\n\nEl límite de Vercel es 4.5MB total.\n\nPor favor, usa archivos más pequeños.`);
+        return;
+      }
+      
+      setFile2(selectedFile);
     }
   };
 
@@ -36,13 +56,26 @@ export const ReplacingPage: React.FC<ReplacingPageProps> = ({ onBack }) => {
       return;
     }
 
+    // Double-check total file size
+    const maxSize = 4.5 * 1024 * 1024;
+    const totalSize = file1.size + file2.size;
+    if (totalSize > maxSize) {
+      alert(`Los archivos combinados son demasiado grandes (${(totalSize / 1024 / 1024).toFixed(2)}MB).\n\nEl límite de Vercel es 4.5MB total.`);
+      return;
+    }
+
     setIsProcessing(true);
     try {
       const filename = outputFilename.endsWith('.udatasmith') ? outputFilename : `${outputFilename}.udatasmith`;
       await uploadFileDouble(file1, file2, '/api/replace', filename);
     } catch (error) {
       console.error(error);
-      alert('Error al procesar: ' + (error as Error).message);
+      const errorMessage = (error as Error).message;
+      if (errorMessage.includes('413') || errorMessage.includes('too large')) {
+        alert('Error: Los archivos son demasiado grandes para Vercel (límite total: 4.5MB).\n\nPor favor usa archivos más pequeños.');
+      } else {
+        alert('Error al procesar: ' + errorMessage);
+      }
     } finally {
       setIsProcessing(false);
     }
