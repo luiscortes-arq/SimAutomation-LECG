@@ -23,6 +23,9 @@ except ImportError as e:
 app = Flask(__name__)
 CORS(app)
 
+# Configure Flask for larger file uploads
+app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB limit
+
 # Vercel only allows writing to /tmp
 TEMP_DIR = "/tmp"
 
@@ -48,6 +51,17 @@ def purge():
         # Save uploaded file to temp
         input_path = os.path.join(TEMP_DIR, file.filename)
         file.save(input_path)
+        
+        # Check file size
+        file_size = os.path.getsize(input_path)
+        if file_size > 4.5 * 1024 * 1024:  # 4.5MB Vercel limit
+            os.remove(input_path)
+            return jsonify({
+                "error": "File too large", 
+                "message": "Vercel has a 4.5MB limit for file uploads. Please upgrade to Vercel Pro for larger files or use a different deployment method.",
+                "file_size": file_size,
+                "limit": 4.5 * 1024 * 1024
+            }), 413
         
         output_filename = f"purged_{file.filename}"
         output_path = os.path.join(TEMP_DIR, output_filename)
@@ -76,6 +90,21 @@ def replace():
         
         target_file.save(target_path)
         template_file.save(template_path)
+        
+        # Check combined file size
+        target_size = os.path.getsize(target_path)
+        template_size = os.path.getsize(template_path)
+        total_size = target_size + template_size
+        
+        if total_size > 4.5 * 1024 * 1024:  # 4.5MB Vercel limit
+            os.remove(target_path)
+            os.remove(template_path)
+            return jsonify({
+                "error": "Files too large", 
+                "message": "Vercel has a 4.5MB limit for total file uploads. Please upgrade to Vercel Pro for larger files or use a different deployment method.",
+                "total_size": total_size,
+                "limit": 4.5 * 1024 * 1024
+            }), 413
         
         output_filename = f"replaced_{target_file.filename}"
         output_path = os.path.join(TEMP_DIR, output_filename)
